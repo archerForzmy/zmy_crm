@@ -162,6 +162,7 @@
       <workItem from="1586834572091" duration="103000" />
       <workItem from="1586919465255" duration="172000" />
       <workItem from="1586921812674" duration="549000" />
+      <workItem from="1586933355060" duration="477000" />
     </task>
     <task id="LOCAL-00001" summary="第一次提交">
       <created>1586922132663</created>
@@ -185,10 +186,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="285" y="228" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1585979160844" />
-    <state x="457" y="108" key="CommitChangelistDialog2" timestamp="1586922190985">
+    <state x="457" y="108" key="CommitChangelistDialog2" timestamp="1586922383177">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="457" y="108" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1586922190985" />
+    <state x="457" y="108" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1586922383177" />
     <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1586921838969">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -229,13 +230,17 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1876" height="284" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586919636573" />
-    <state x="640" y="342" key="com.intellij.ide.util.TipDialog" timestamp="1586091097043">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1586922436412">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="640" y="342" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586091097043" />
-    <state x="752" y="436" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586922210953">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586922436412" />
+    <state x="640" y="342" key="com.intellij.ide.util.TipDialog" timestamp="1586933356242">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="752" y="436" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586922210953" />
+    <state x="640" y="342" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586933356242" />
+    <state x="752" y="436" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586922408022">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="752" y="436" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586922408022" />
   </component>
 </project>
