@@ -121,6 +121,6 @@ public class CodeGenerator {
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();
-    }//我来过\\\user也来过哈哈哈
+    }
 
 }
