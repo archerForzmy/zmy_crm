@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a51189bf-f749-493f-b4a6-fc61623ddde7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="a51189bf-f749-493f-b4a6-fc61623ddde7" name="Default Changelist" comment="创建分支：employee、customer、orders" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -164,7 +162,7 @@
       <workItem from="1586921812674" duration="549000" />
       <workItem from="1586933355060" duration="1535000" />
       <workItem from="1586938305075" duration="1579000" />
-      <workItem from="1586945491960" duration="522000" />
+      <workItem from="1586945491960" duration="764000" />
     </task>
     <task id="LOCAL-00001" summary="第一次提交">
       <created>1586922132663</created>
@@ -222,7 +220,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586939621064</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="创建分支：employee、customer、orders">
+      <created>1586946075746</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1586946075746</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -234,17 +239,18 @@
     <MESSAGE value="我在代码生成器做了标识" />
     <MESSAGE value="user在代码生成器做了标识" />
     <MESSAGE value="user合并后提交" />
-    <option name="LAST_COMMIT_MESSAGE" value="user合并后提交" />
+    <MESSAGE value="创建分支：employee、customer、orders" />
+    <option name="LAST_COMMIT_MESSAGE" value="创建分支：employee、customer、orders" />
   </component>
   <component name="WindowStateProjectService">
     <state x="285" y="228" key="#com.intellij.ide.util.MemberChooser" timestamp="1585979160844">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="285" y="228" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1585979160844" />
-    <state x="730" y="137" key="CommitChangelistDialog2" timestamp="1586946084397">
+    <state x="730" y="137" key="CommitChangelistDialog2" timestamp="1586946264768">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="730" y="137" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1586946084397" />
+    <state x="730" y="137" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1586946264768" />
     <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1586921838969">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -293,9 +299,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="640" y="342" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586933356242" />
-    <state x="752" y="436" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586946220300">
+    <state x="752" y="436" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586946255541">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="752" y="436" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586946220300" />
+    <state x="752" y="436" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586946255541" />
   </component>
 </project>
