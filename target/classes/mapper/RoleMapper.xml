@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzy.crm.mapper.RoleMapper">
+    <!-- 角色映射结果 -->
+    <resultMap id="RoleResultMap" type="com.zzy.crm.entity.Role">
+        <id     column="role_id"     property="roleId" />
+        <result column="role_name"      property="roleName" />
+        <result column="create_time"    property="createTime" />
+        <result column="update_time"    property="updateTime" />
+        <result column="is_del"         property="isDel" />
+        <collection  property="permissionList" javaType="java.util.List"  resultMap="PermissionResultMap" />
+        <collection  property="departmentList" javaType="java.util.List"  resultMap="DepartmentResultMap" />
+    </resultMap>
+
+    <!-- 权限映射结果 -->
+    <resultMap id="PermissionResultMap" type="com.zzy.crm.entity.Permission">
+        <id column="perm_id" property="permId" />
+        <result column="perm_name" property="permName" />
+        <result column="url" property="url" />
+        <result column="permission" property="permission" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_del" property="isDel" />
+    </resultMap>
+    <!-- 部门映射结果 -->
+    <resultMap id="DepartmentResultMap" type="com.zzy.crm.entity.Department">
+        <id column="dept_id" property="deptId" />
+        <result column="dept_name" property="deptName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_del" property="isDel" />
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+      select distinct
+            r.role_name,r.role_id,r.create_time, r.update_time,
+            p.perm_name, p.permission,p.url,p.perm_id,
+            d.dept_name, d.dept_id
+        from
+          role r
+                LEFT JOIN role_permission rp    on  r.role_id = rp.role_id
+                LEFT JOIN permission p          on  p.perm_id = rp.perm_id
+                LEFT JOIN dept_role dr          on  r.role_id = dr.role_id
+                LEFT JOIN department d          on  d.dept_id = dr.dept_id
+    </sql>
+    <select id="selectList" resultMap="RoleResultMap">
+        <include refid="Base_Column_List" />
+        WHERE r.is_del=0
+    </select>
+    <select id="recoverRole" resultMap="RoleResultMap">
+        <include refid="Base_Column_List" />
+        WHERE r.is_del=1
+    </select>
+
+</mapper>

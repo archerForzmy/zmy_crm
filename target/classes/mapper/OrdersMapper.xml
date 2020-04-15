@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzy.crm.mapper.OrdersMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="OrdersMap" type="com.zzy.crm.entity.Orders">
+        <id column="orders_id" property="ordersId" />
+        <result column="business_id" property="businessId" />
+        <result column="total_price" property="totalPrice" />
+        <result column="customer_id" property="customerId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_del" property="isDel" />
+        <association property="business" javaType="com.zzy.crm.entity.Business" resultMap="BusinessMap"/>
+        <association property="customer" javaType="com.zzy.crm.entity.Customer" resultMap="CustomerMap"/>
+    </resultMap>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BusinessMap" type="com.zzy.crm.entity.Business">
+        <id column="business_id" property="businessId" />
+        <result column="busubess_name" property="busubessName" />
+        <result column="head" property="head" />
+        <result column="telphone" property="telphone" />
+        <result column="description" property="description" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_del" property="isDel" />
+    </resultMap>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="CustomerMap" type="com.zzy.crm.entity.Customer">
+        <id column="customer_id" property="customerId" />
+        <result column="customer_name" property="customerName" />
+        <result column="sex" property="sex" />
+        <result column="telphone" property="telphone" />
+        <result column="company" property="company" />
+        <result column="address" property="address" />
+        <result column="emp_id" property="empId" />
+        <result column="is_orders" property="isOrders" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_del" property="isDel" />
+        <association property="employee" javaType="com.zzy.crm.entity.Employee" resultMap="EmployeeMap"/>
+    </resultMap>
+
+    <resultMap id="EmployeeMap" type="com.zzy.crm.entity.Employee">
+        <id     column="emp_id"    property="empId"/>
+        <result column="emp_name"  property="empName"/>
+        <result column="pwd"   property="pwd"/>
+        <result column="salt"       property="salt"/>
+        <result column="age"       property="age"/>
+        <result column="sex"       property="sex"/>
+        <result column="phone"       property="phone"/>
+        <result column="address"       property="address"/>
+        <result column="create_time"       property="createTime"/>
+        <result column="update_time"       property="updateTime"/>
+        <result column="is_del"       property="isDel"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+       select b.busubess_name,os.*,c.customer_name,c.customer_id  from orders os
+            LEFT JOIN business b            ON os.business_id=b.business_id
+            LEFT JOIN customer c            ON c.customer_id=os.customer_id
+            LEFT JOIN employee e            ON e.emp_id=c.emp_id
+    </sql>
+
+    <select id="selectOrders" resultMap="OrdersMap" parameterType="Integer">
+        <include refid="Base_Column_List"></include>
+        WHERE e.emp_id=#{empId} and os.is_del=0
+    </select>
+
+    <select id="recoverList" resultMap="OrdersMap" parameterType="Integer">
+        <include refid="Base_Column_List"></include>
+        WHERE e.emp_id=#{empId} and os.is_del=1
+    </select>
+
+</mapper>
