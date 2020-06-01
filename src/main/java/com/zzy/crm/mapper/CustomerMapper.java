@@ -6,6 +6,8 @@ import com.zzy.crm.entity.Customer;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
+
 /**
  * <p>
  *  Mapper 接口
@@ -17,6 +19,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CustomerMapper extends BaseMapper<Customer> {
 
-   /* IPage<Customer> customerList(Page<Customer> page, String empName);*/
+   IPage<Customer> customerList(Page<Customer> page,Integer empId, Date start, Date end, String empName);
 
 }

@@ -17,6 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  *  服务实现类
@@ -63,5 +67,27 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
             customerMapper.updateById(custome);
         }
         return a;
+    }
+
+    @Override
+    public IPage<Orders> selectOrders(Page<Orders> page, Date start, Date end, String busubess_name) {
+        Subject subject = SecurityUtils.getSubject();
+        Employee employee = (Employee) subject.getPrincipal();
+        return ordersMapper.selectOrdersBySearch(page,employee.getEmpId(),start,end,busubess_name);
+    }
+
+    @Override
+    public List<Map<String, Object>> selectOrderCount() {
+        return ordersMapper.selectOrderCount();
+    }
+
+    @Override
+    public List<Map<String, Object>> selectOrderSum() {
+        return ordersMapper.selectOrderSum();
+    }
+
+    @Override
+    public List<Map<String, Object>> selectOrderSumByEmp() {
+        return ordersMapper.selectOrderSumByEmp();
     }
 }

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.2</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="/static/css/font.css">
+    <link rel="stylesheet" href="/static/css/xadmin.css">
+    <script src="/static/lib/layui/layui.js" charset="utf-8"></script>
+    <script src="/static/js/echarts.min.js" charset="utf-8"></script>
+    <script src="/static/js/jquery.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/static/js/xadmin.js"></script>
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="x-nav">
+            <span class="layui-breadcrumb">
+                <a href="">首页</a>
+                <a href="">系统统计</a>
+                <a>
+                    <cite>数据分析</cite></a>
+            </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
+       onclick="location.reload()" title="刷新">
+        <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i>
+    </a>
+</div>
+<div>
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <div>
+                        <div id="main" style="width: 48%;height:300px;float: left"></div>
+                        <div id="main0" style="width: 48%;height:300px;float: right"></div>
+                    </div>
+                    <div id="main1" style="width: 100%;height:600px;margin-top: 310px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+    //加载统计数据
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+    var myChart0 = echarts.init(document.getElementById('main0'));
+    var myChart1 = echarts.init(document.getElementById('main1'));
+
+    $.get('/statistics').done(function (data) {
+        myChart.hideLoading();
+        myChart0.hideLoading();
+
+        myChart.setOption({
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            title: {
+                text: '转化率趋势'
+            },
+            legend: {
+                data: ['转化率']
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: data[0]
+            },
+            yAxis: {
+                type: 'value',
+                boundaryGap: [0, '100%']
+            },
+            series: [{
+                name: '转化率',
+                type: 'line',
+                data: data[2],
+                symbol: 'none',
+                sampling: 'average',
+                itemStyle: {
+                    color: 'rgb(255, 70, 131)'
+                },
+                areaStyle: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgb(255, 158, 68)'
+                    }, {
+                        offset: 1,
+                        color: 'rgb(255, 80, 121)'
+                    }])
+                }
+            }]
+        });
+        myChart0.setOption({
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            title: {
+                text: '流量趋势'
+            },
+            legend: {
+                data: ['流量']
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: data[0]
+            },
+            yAxis: {
+                type: 'value',
+                boundaryGap: [0, '100%']
+            },
+            series: [{
+                name: '流量',
+                type: 'line',
+                data: data[1],
+                symbol: 'none',
+                sampling: 'average',
+                itemStyle: {
+                    color: 'rgb(9, 206, 96)'
+                },
+                areaStyle: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgb(9, 120, 96)'
+                    }, {
+                        offset: 1,
+                        color: 'rgb(9, 206, 96)'
+                    }])
+                }
+            }]
+        });
+    });
+
+    $.get('/statistics1').done(function (data) {
+        console.log(data);
+
+        myChart1.setOption({
+            legend: {},
+            title: {
+                text: '各业务销售额趋势'
+            },
+            tooltip: {
+                trigger: 'axis',
+                showContent: false
+            },
+            dataset:{
+                source: data
+            },
+            /*dataset: {
+                source: [
+                    ['product', '2012', '2013', '2014', '2015', '2016', '2017'],
+                    ['Matcha Latte', 41.1, 30.4, 65.1, 53.3, 83.8, 98.7],
+                    ['Milk Tea', 86.5, 92.1, 85.7, 83.1, 73.4, 55.1],
+                    ['Cheese Cocoa', 24.1, 67.2, 79.5, 86.4, 65.2, 82.5],
+                    ['Walnut Brownie', 55.2, 67.1, 69.2, 72.4, 53.9, 39.1]
+                ]
+            },*/
+            xAxis: {type: 'category'},
+            yAxis: {gridIndex: 0},
+            grid: {top: '55%'},
+            series: [
+                {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                {
+                    type: 'pie',
+                    id: 'pie',
+                    radius: '30%',
+                    center: ['50%', '25%'],
+                    label: {
+                        formatter: '{b}: {@'+data[0][1]+'} ({d}%)'
+                    },
+                    encode: {
+                        itemName: 'date',
+                        value: data[0][1],
+                        tooltip: data[0][1]
+                    }
+                }
+            ]
+        });
+
+        myChart1.on('updateAxisPointer', function (event) {
+            var xAxisInfo = event.axesInfo[0];
+            if (xAxisInfo) {
+                var dimension = xAxisInfo.value + 1;
+                myChart1.setOption({
+                    series: {
+                        id: 'pie',
+                        label: {
+                            formatter: '{b}: {@[' + dimension + ']} ({d}%)'
+                        },
+                        encode: {
+                            value: dimension,
+                            tooltip: dimension
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+
+</script>
+
+
+</html>

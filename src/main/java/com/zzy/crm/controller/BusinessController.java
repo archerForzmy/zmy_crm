@@ -10,6 +10,7 @@ import com.zzy.crm.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,9 +35,6 @@ public class BusinessController {
         return businessService.list(wrapper.eq("is_del",0));
     }
 
-
-
-
     @GetMapping("/business")
     public Map list(Integer page, Integer limit){
         Map<String,Object> map = new HashMap<String,Object>();
@@ -51,6 +49,32 @@ public class BusinessController {
         map.put("code",0);
         return map;
     }
+
+    @GetMapping("/searchBusiness")
+    public Map list(Integer page, Integer limit,String start,String end,String busubess_name) throws ParseException {
+        Map<String,Object> map = new HashMap<String,Object>();
+        Page<Business> page1 = new Page<Business>();
+        page1.setSize(limit);
+        page1.setCurrent(page);
+        IPage<Business> iPage;
+        if(com.baomidou.mybatisplus.core.toolkit.StringUtils.isBlank(start)
+                &&com.baomidou.mybatisplus.core.toolkit.StringUtils.isBlank(end)
+                &&com.baomidou.mybatisplus.core.toolkit.StringUtils.isBlank(busubess_name)){
+            QueryWrapper<Business> wrapper=new QueryWrapper<>();
+            iPage=businessService.page(page1,wrapper.eq("is_del",0));
+        }else{
+            iPage= businessService.listContactC(page1,StringUtils.converterStringToDate(start)
+                    ,StringUtils.converterStringToDate(end)
+                    ,busubess_name);
+        }
+
+        map.put("msg","查询情况");
+        map.put("count",iPage.getTotal());
+        map.put("data",iPage.getRecords());
+        map.put("code",0);
+        return map;
+    }
+
     @GetMapping("/recoveryList")
     public Map recoveryList(Integer page, Integer limit){
         Map<String,Object> map = new HashMap<String,Object>();

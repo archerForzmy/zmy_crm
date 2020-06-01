@@ -6,6 +6,7 @@ import com.zzy.crm.entity.Employee;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -26,4 +27,6 @@ public interface EmployeeService extends IService<Employee> {
     Integer add(Employee employee,Integer roleId);
 
     Integer update(Employee employee,Integer roleId);
+
+    List<Map<String,Object>> selectAll();
 }

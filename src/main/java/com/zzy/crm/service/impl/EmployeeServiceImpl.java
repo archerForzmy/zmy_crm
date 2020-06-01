@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -99,5 +100,10 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         empRoleMapper.update(empRole,wrapper);
 
         return result;
+    }
+
+    @Override
+    public List<Map<String, Object>> selectAll() {
+        return employeeMapper.selectAll();
     }
 }

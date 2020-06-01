@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.2</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="/static/css/font.css">
+    <link rel="stylesheet" href="/static/css/xadmin.css">
+    <script src="/static/lib/layui/layui.js" charset="utf-8"></script>
+    <script src="/static/js/echarts.min.js" charset="utf-8"></script>
+    <script src="/static/js/jquery.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/static/js/xadmin.js"></script>
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="x-nav">
+            <span class="layui-breadcrumb">
+                <a href="">首页</a>
+                <a href="">系统统计</a>
+                <a>
+                    <cite>数据分析</cite></a>
+            </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
+       onclick="location.reload()" title="刷新">
+        <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i>
+    </a>
+</div>
+<div>
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <div id="main" style="width: 100%;height:800px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+    //加载统计数据
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    $.get('/statistics2', function (data) {
+        console.log(data);
+        myChart.hideLoading();
+
+        var itemStyle = {
+            opacity: 0.8,
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowOffsetY: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+        };
+
+        var sizeFunction = function (x) {
+            var y= x[1]/(x[0]+1)+0.1;
+            //var y = Math.sqrt(x / 5e8) + 0.1;
+            return y * 10;
+        };
+        option = {
+            baseOption: {
+                timeline: {
+                    axisType: 'category',
+                    orient: 'vertical',
+                    autoPlay: true,
+                    inverse: true,
+                    playInterval: 1000,
+                    left: null,
+                    right: 0,
+                    top: 20,
+                    bottom: 20,
+                    width: 55,
+                    height: null,
+                    label: {
+                        color: '#999'
+                    },
+                    symbol: 'none',
+                    lineStyle: {
+                        color: '#555'
+                    },
+                    checkpointStyle: {
+                        color: '#bbb',
+                        borderColor: '#777',
+                        borderWidth: 2
+                    },
+                    controlStyle: {
+                        showNextBtn: false,
+                        showPrevBtn: false,
+                        color: '#666',
+                        borderColor: '#666'
+                    },
+                    emphasis: {
+                        label: {
+                            color: '#fff'
+                        },
+                        controlStyle: {
+                            color: '#aaa',
+                            borderColor: '#aaa'
+                        }
+                    },
+                    data: []
+                },
+                backgroundColor: '#404a59',
+                title: [{
+                    text: data.timeline[0],
+                    textAlign: 'center',
+                    left: '63%',
+                    top: '55%',
+                    textStyle: {
+                        fontSize: 60,
+                        color: 'rgba(255, 255, 255, 0.7)'
+                    }
+                }, {
+                    text: '全市订单转换率分布关系',
+                    left: 'center',
+                    top: 10,
+                    textStyle: {
+                        color: '#aaa',
+                        fontWeight: 'normal',
+                        fontSize: 20
+                    }
+                }],
+                tooltip: {
+                    padding: 5,
+                    backgroundColor: '#222',
+                    borderColor: '#777',
+                    borderWidth: 1,
+                    formatter: function (obj){
+                        var value = obj.value;
+                        return '员工' + '：' + value[2] + '<br>'
+                            + '销售' + '：' + value[1] + '元' + '<br>'
+                            + '跟进' + '：' + value[0] + '个' + '<br>'
+                    }
+                },
+                grid: {
+                    top: 100,
+                    containLabel: true,
+                    left: 30,
+                    right: '110'
+                },
+                xAxis: {
+                    name: '日跟进流量',
+                    max:100,
+                    min:0,
+                    nameLocation: 'middle',
+                    nameTextStyle: {
+                        fontSize: 18
+                    },
+                    splitLine: {
+                        show: false
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#ccc'
+                        }
+                    },
+                    axisLabel: {
+                        formatter: '{value} '
+                    }
+                },
+                yAxis: {
+                    name: '日销售额',
+                    max: 1000,
+                    min: 0,
+                    nameTextStyle: {
+                        color: '#ccc',
+                        fontSize: 18
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#ccc'
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    },
+                    axisLabel: {
+                        formatter: '{value} $'
+                    }
+                },
+                visualMap: [
+                    {
+                        show: false,
+                        dimension: 3,
+                        categories: data.counties,
+                        calculable: true,
+                        precision: 0.1,
+                        textGap: 30,
+                        textStyle: {
+                            color: '#ccc'
+                        },
+                        inRange: {
+                            color: (function () {
+                                var colors = ['#bcd3bb', '#e88f70', '#edc1a5', '#9dc5c8', '#e1e8c8', '#7b7c68', '#e5b5b5', '#f0b489', '#928ea8', '#bda29a'];
+                                return colors.concat(colors);
+                            })()
+                        }
+                    }
+                ],
+                series: [
+                    {
+                        type: 'scatter',
+                        itemStyle: itemStyle,
+                        data: data.series[0],
+                        symbolSize: function(val) {
+                            return sizeFunction(val);
+                        }
+                    }
+                ],
+                animationDurationUpdate: 1000,
+                animationEasingUpdate: 'quinticInOut'
+            },
+            options: []
+        };
+
+        for (var n = 0; n < data.timeline.length; n++) {
+            option.baseOption.timeline.data.push(data.timeline[n]);
+            option.options.push({
+                title: {
+                    show: true,
+                    'text': data.timeline[n] + ''
+                },
+                series: {
+                    name: data.timeline[n],
+                    type: 'scatter',
+                    itemStyle: itemStyle,
+                    data: data.series[n],
+                    symbolSize: function(val) {
+                        return sizeFunction(val);
+                    }
+                }
+            });
+        }
+
+        myChart.setOption(option);
+
+    });
+
+
+</script>
+
+
+</html>

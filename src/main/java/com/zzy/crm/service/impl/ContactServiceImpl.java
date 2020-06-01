@@ -13,6 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  *  服务实现类
@@ -37,9 +41,26 @@ public class ContactServiceImpl extends ServiceImpl<ContactMapper, Contact> impl
     }
 
     @Override
+    public IPage<Contact> listContactC(Page<Contact> page, Date start, Date end, String customer_name) {
+        Subject subject = SecurityUtils.getSubject();
+        Employee employee = (Employee) subject.getPrincipal();
+        return contactMapper.listContactCByCondition(page,employee.getEmpId(),start,end,customer_name);
+    }
+
+    @Override
     public IPage<Contact> recoverContactC(Page<Contact> page) {
         Subject subject = SecurityUtils.getSubject();
         Employee employee = (Employee) subject.getPrincipal();
         return contactMapper.recoverContactC(page,employee.getEmpId());
+    }
+
+    @Override
+    public List<Map<String, Object>> selectContactCount() {
+        return contactMapper.selectContactCount();
+    }
+
+    @Override
+    public List<Map<String, Object>> selectContactCountByEmp() {
+        return contactMapper.selectContactCountByEmp();
     }
 }

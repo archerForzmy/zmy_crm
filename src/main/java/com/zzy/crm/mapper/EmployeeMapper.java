@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -25,5 +26,7 @@ public interface EmployeeMapper extends BaseMapper<Employee> {
     IPage<Employee> recoverEmp(Page<Employee> page);
 
     Employee selectByName(String empName);
+
+    List<Map<String,Object>> selectAll();
 
 }

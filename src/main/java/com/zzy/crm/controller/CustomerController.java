@@ -2,6 +2,7 @@ package com.zzy.crm.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zzy.crm.entity.Contact;
 import com.zzy.crm.entity.Customer;
 import com.zzy.crm.entity.Employee;
 import com.zzy.crm.entity.Permission;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +51,33 @@ public class CustomerController {
         Employee employee = (Employee) subject.getPrincipal();
         QueryWrapper<Customer> queryWrapper=new QueryWrapper<>();
         IPage<Customer> iPage=customerService.page(page1,queryWrapper.eq("is_del",0).eq("emp_id",employee.getEmpId()));
+        map.put("msg","查询情况");
+        map.put("count",iPage.getTotal());
+        map.put("data",iPage.getRecords());
+        map.put("code",0);
+        return map;
+    }
+
+    @GetMapping("/searchCustomer")
+    public Map getListSearch(Integer page, Integer limit, String start, String  end, String empName) throws ParseException {
+        Map<String,Object> map = new HashMap<String,Object>();
+        Page<Customer> page1 = new Page<>();
+        page1.setSize(limit);
+        page1.setCurrent(page);
+        IPage<Customer> iPage=null;
+        Subject subject = SecurityUtils.getSubject();
+        Employee employee = (Employee) subject.getPrincipal();
+        if(com.baomidou.mybatisplus.core.toolkit.StringUtils.isBlank(start)
+                &&com.baomidou.mybatisplus.core.toolkit.StringUtils.isBlank(end)
+                &&com.baomidou.mybatisplus.core.toolkit.StringUtils.isBlank(empName)){
+            QueryWrapper<Customer> queryWrapper=new QueryWrapper<>();
+            iPage=customerService.page(page1,queryWrapper.eq("is_del",0).eq("emp_id",employee.getEmpId()));
+        }else{
+            iPage= customerService.listContactC(page1,StringUtils.converterStringToDate(start)
+                    ,StringUtils.converterStringToDate(end)
+                    ,empName);
+        }
+
         map.put("msg","查询情况");
         map.put("count",iPage.getTotal());
         map.put("data",iPage.getRecords());

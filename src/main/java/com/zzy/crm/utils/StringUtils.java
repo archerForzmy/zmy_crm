@@ -1,5 +1,6 @@
 package com.zzy.crm.utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -13,5 +14,13 @@ public class StringUtils {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         return df.format(date);
+    }
+
+    public static  Date converterStringToDate(String dateString) throws ParseException {
+        if(com.baomidou.mybatisplus.core.toolkit.StringUtils.isBlank(dateString)){
+            return null;
+        }
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return df.parse(dateString);
     }
 }
